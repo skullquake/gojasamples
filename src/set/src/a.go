@@ -21,14 +21,25 @@ func main(){
 		fmt.Println(r)
 	}
 	{
+		log:=func(val string){
+			fmt.Println(val)
+		}
+		console:=vm.NewObject()
+		console.Set("log",log)
+		vm.Set("console",console)
+		vm.RunString("console.log('HELLO0')")
+		vm.RunString("console.log(42)")
+	}
+	{
 		log:=func(call js.FunctionCall)js.Value{
 			str:=call.Argument(0)
-			fmt.Print(str.String())
+			fmt.Println(str.String())
 			return str
 		}
 		console:=vm.NewObject()
 		console.Set("log",log)
 		vm.Set("console",console)
-		vm.RunString("console.log('HELLO')")
+		vm.RunString("console.log('HELLO1')")
+		vm.RunString("console.log(24)")
 	}
 }
