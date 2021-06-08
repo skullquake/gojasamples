@@ -15,7 +15,7 @@ $(BIN):$(SRC)
 compress:$(BIN)
 	@-$(UPX) $(BIN)
 run:$(BIN)
-	@-$(BIN) ./res/a.js
+	@-$(BIN) ./res/a.js ./res/b.js
 .phony:clean
 clean:
 	$(RM) $(BIN)

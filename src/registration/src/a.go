@@ -1,6 +1,5 @@
 package main
 import(
-	"fmt"
 	"log"
 	"io"
 	"io/ioutil"
@@ -9,20 +8,21 @@ import(
 	"github.com/dop251/goja"
 )
 func main(){
-	if len(os.Args[1:])!=1{
+	if len(os.Args[1:])<1{
 		log.Fatalf("invalid arguments")
 		os.Exit(1)
-	}
-	buf,err:=ioutil.ReadFile(os.Args[1])
-	if err!=nil{
-		log.Fatalf("failed to open file")
-		panic(err)
 	}
 	vm:=goja.New()
 	Register_jsext_consoleutils(vm)
 	Register_jsext_fsutils(vm)
-	r,_:=vm.RunString(string(buf))
-	fmt.Println(r)
+	for _,a:=range os.Args[1:]{
+		buf,err:=ioutil.ReadFile(a)
+		if err!=nil{
+			log.Fatalf("failed to open file")
+			panic(err)
+		}
+		vm.RunString(string(buf))
+	}
 }
 func Register_jsext_fsutils(vm*goja.Runtime) {
 	vm.SetFieldNameMapper(goja.TagFieldNameMapper("json",true))

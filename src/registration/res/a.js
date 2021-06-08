@@ -1,1 +1,1 @@
-console.log(fsutils.ls("./"));
+var a=42;
