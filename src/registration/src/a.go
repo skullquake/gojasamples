@@ -184,7 +184,8 @@ func Register_jsext_consoleutils(vm *goja.Runtime) {
 		Minor int `json:"minor"`
 		Bump  int `json:"bump"`
 	}
-	log.SetFlags(log.LstdFlags|log.Lmicroseconds)
+	//log.SetFlags(log.LstdFlags|log.Lmicroseconds)
+	l:=log.New(os.Stdout,"",0)//no timestamp
 	vm.Set("console", struct {
 		Version Version              `json:"version"`
 		Log     func(...interface{}) `json:"log"`
@@ -199,19 +200,19 @@ func Register_jsext_consoleutils(vm *goja.Runtime) {
 			Bump:  1,
 		},
 		Log: func(msg ...interface{}) {
-			log.Println(msg...)
+			l.Println(msg...)
 		},
 		Warn: func(msg ...interface{}) {
-			log.Println(msg...)
+			l.Println(msg...)
 		},
 		Error: func(msg ...interface{}) {
-			log.Println(msg...)
+			l.Println(msg...)
 		},
 		Debug: func(msg ...interface{}) {
-			log.Println(msg...)
+			l.Println(msg...)
 		},
 		Trace: func(msg ...interface{}) {
-			log.Println(msg...)
+			l.Println(msg...)
 		},
 	})
 }
